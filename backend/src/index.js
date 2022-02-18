@@ -1,21 +1,20 @@
-const express = require('express');
+const express = require('express')
+const cors = require('cors')
 
-const server = express();
-server.use(express.json());
+const server = express()
+server.use(express.json())
+server.use(cors())
 
-const CheckoutController = require('./controllers/checkoutController');
-server.post('/checkout', CheckoutController.Register);
-
-(async () => {
-  const database = require('./database');
+const CheckoutController = require('./controllers/checkoutController')
+server.post('/checkout', CheckoutController.Register)
+;(async () => {
+  const database = require('./database')
 
   try {
-    const resultado = await database.sync();
-    console.log(resultado);
+    await database.sync()
   } catch (error) {
-    console.log(error);
+    console.log('ERROR', error)
   }
-})();
+})()
 
-
-server.listen(3333, () => console.log("Server is running on port 3333"));
+server.listen(3333, () => console.log('Server is running on port 3333'))
